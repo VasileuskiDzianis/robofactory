@@ -9,5 +9,7 @@ public interface RobotFactory {
 	Task takeTask();
 	
 	void addTask(Task task);
+
+	void terminate();
 	
 }

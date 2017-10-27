@@ -1,4 +1,4 @@
-package by.vasilevsky.robofactory.web;
+package by.vasilevsky.robofactory.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
