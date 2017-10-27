@@ -1,7 +1,10 @@
 package by.vasilevsky.robofactory.service.impl;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,11 +30,28 @@ public class RobotFactoryImplTest extends RobotFactoryImpl {
 		commands.offer(new Task(8, new ThrowCommand()));
 	}
 
-	@Test(timeout = 100000)
-	public void test() {
+	@Test
+	public void test() throws InterruptedException {
 		RobotFactoryImpl robotFactory = new RobotFactoryImpl();
-		robotFactory.setTaskQueue(commands);
 		robotFactory.init();
+		List<Task> additionalTasks = Arrays.asList(new Task(9, new DrillCommand()),
+				new Task(10, new MoveUpCommand()),
+				new Task(11, new MoveUpCommand()),
+				new Task(12, new MoveUpCommand()),
+				new Task(13, new MoveUpCommand()),
+				new Task(14, new MoveUpCommand()),
+				new Task(15, new MoveUpCommand())
+				);
+		for (Task task : additionalTasks) {
+			try {
+				robotFactory.addTask(task);
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		TimeUnit.SECONDS.sleep(10);
+		System.out.println("Test finished");
 	}
 
 }
